@@ -50,98 +50,21 @@ const promptUser = () => {
             name: "features-confirm"
         }
     ]).then(function (answers) {
-        console.log(answers.username);
         const queryUrl = `https://api.github.com/users/${answers.username}/events/public`;
-
-
+        
         axios.get(queryUrl).then(function (res) {
-            console.log(res)
-            console.log(res.avatar_url)
-            if (err) {
-                throw err;
-              }
+            console.log(res.data[0])
 
-            // const profilePic = res.data.map(function (image) {
-            //     return image.avatar_url;
-            // });
+            const { avatar_url } = res.data[0].actor;
+            console.log(avatar_url)
+            console.log(res.data[0].payload.commits[0]);
 
+
+        }).catch(function (err) {
+            console.log(err)
         }
         )
     }
     )
 }
 promptUser();
-
-                // });
-
-                // .then(function (data) {
-                //     api.getUsers(data.username)
-
-
-                // });
-                // //  let createfile = (filename) => {
-                //     fs.writeFile(filename, JSON.stringify(data, null, '\t'), function (err) {
-
-                //         if (err) {
-                //             return console.log(err);
-                //         }
-
-                //         console.log("Success!");
-
-                //     });
-                // axios
-                //   .get(queryUrl)
-                //   .then((response) => {
-                //     console.log(response.data);
-
-                //     const repoNames = response.data.map((repo) => { return repo.name });
-
-                //     return appendFileAsync("jokes.txt", joke + "\n"); 
-                //   })
-                //   .then(() => {
-                //     console.log("success");
-
-                //     return readFileAsync("jokes.txt", "utf-8")
-                //   })
-                //   .then((data) => {
-                //     console.log("---READ FROM FILE---")
-                //     console.log(data);
-                //   })
-                //   .catch((err) => {
-                //     console.log(err);
-
-                //   });
-
-
-
-                // async function init()
-                // init();
-
-                //     });
-                // }
-
-
-
-                // axios
-                //   .get("https://icanhazdadjoke.com/", config)
-                //   .then((res) => {
-                //     console.log(res.data);
-
-                //     const { joke } = res.data
-
-                //     return appendFileAsync("jokes.txt", joke + "\n"); 
-                //   })
-                //   .then(() => {
-                //     console.log("success");
-
-                //     return readFileAsync("jokes.txt", "utf-8")
-                //   })
-                //   .then((data) => {
-                //     console.log("---READ FROM FILE---")
-                //     console.log(data);
-                //   })
-                //   .catch((err) => {
-                //     console.log(err);
-
-                //   });
-
