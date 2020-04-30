@@ -3,7 +3,7 @@ const axios = require("axios");
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
-// const writeFileAsync = util.promisify(fs.writeFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 inquirer
 const promptUser = () => {
@@ -12,11 +12,11 @@ const promptUser = () => {
             type: "input",
             message: "Hello, I am here to assist with creating you a professional ReadMe. Can you start with entering your GitHub username",
             name: "username",
-            validate: function(input) {
-                if (input === false) {
-                    console.log("wrong name"); 
-                }
-            }
+            // validate(input) {
+            //     if (input === true) {
+            //         console.log("wrong name"); 
+            //     }
+            // }
         },
         {
             type: "input",
@@ -46,35 +46,95 @@ const promptUser = () => {
         },
         {
             type: "input",
+            message: "Do you want list instructions regarding how to install your project?",
+            name: "install"
+        },
+        {
+            type: "input",
             message: "What do you want the user to know about contributing to your poject?",
             name: "contributing"
         },
         {
             type: "input",
-            message: "Are there any features?",
-            name: "features-confirm"
+            message: "How can the user run tests for your project?",
+            name: "tests"
         }
+
     ]).then(function (answers) {
         const queryUrl = `https://api.github.com/users/${answers.username}/events/public`;
-    
 
+        
         axios.get(queryUrl).then(function (res) {
-            console.log(res.data[0])
-
+            //how to return these two values? 
             const { avatar_url } = res.data[0].actor;
-            let photo = avatar_url;
-            let email = res.data[0].payload.commits[0].author.email;
-            // return photo
-            // return email
-
-            // console.log(photo)
-            // console.log(email)
+            const { email, name} = res.data[0].payload.commits[0].author;
+           
 
         }).catch(function (err) {
             console.log(err)
         }
         )
+        
         return answers;
     })
 }
-promptUser();
+// promptUser(); 
+function generateReadme(answers) {
+    return `
+    <h1>${answers.project-name}</h1>
+    <p>${answers.description}</p>
+    
+    ## Table of Contents
+                              
+    * [Installation](#installation)
+    * [Usage](#usage)
+    * [License](#license)
+    * [Contributing](#contributing)
+    * [Tests](#tests)
+    * [Questions](#questions)
+                              
+    ## Installation
+                              
+    ${answers.install}
+                              
+    ## Usage
+                              
+    ${answers.usage}
+
+    ## License 
+	
+   ${answers.license}
+                              
+    ## Contributing
+                              
+    ${answers.contributing}
+                              
+    ## Tests 
+                              
+     To test this project, follow these directions:
+                              
+    ${answers.tests}
+                              
+    ## Questions
+                              
+    ![GitHub Avatar](${avatar_url})
+                
+    Any questions regarding this project, contact ${email} directly
+    `;
+}
+async function init() {
+    try {
+      const answers = await promptUser();
+  
+      const readMe = generateReadme(answers);
+  
+      await writeFileAsync("README.md", readMe);
+  
+      console.log("Created README!");
+    } catch(err) {
+      console.log(err);
+    }
+  }
+  
+  init();
+  
