@@ -12,6 +12,11 @@ const promptUser = () => {
             type: "input",
             message: "Hello, I am here to assist with creating you a professional ReadMe. Can you start with entering your GitHub username",
             name: "username",
+            validate: function(input) {
+                if (input === false) {
+                    console.log("wrong name"); 
+                }
+            }
         },
         {
             type: "input",
@@ -51,20 +56,25 @@ const promptUser = () => {
         }
     ]).then(function (answers) {
         const queryUrl = `https://api.github.com/users/${answers.username}/events/public`;
-        
+    
+
         axios.get(queryUrl).then(function (res) {
             console.log(res.data[0])
 
             const { avatar_url } = res.data[0].actor;
-            console.log(avatar_url)
-            console.log(res.data[0].payload.commits[0]);
+            let photo = avatar_url;
+            let email = res.data[0].payload.commits[0].author.email;
+            // return photo
+            // return email
 
+            // console.log(photo)
+            // console.log(email)
 
         }).catch(function (err) {
             console.log(err)
         }
         )
-    }
-    )
+        return answers;
+    })
 }
 promptUser();
