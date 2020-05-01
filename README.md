@@ -1,9 +1,6 @@
-    <h1></h1>
-    <p></p>
-    
+    <h1>Title</h1>
     <h2>Table of Contents</h2>
     <ul> 
-    //make hyperlinks
       <li>Installation</li>                       
       <li>Usage</li> 
       <li>License</li> 
