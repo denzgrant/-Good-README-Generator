@@ -21,7 +21,7 @@ const promptUser = () => {
         {
             type: "input",
             message: "What is the name of this lovely project?",
-            name: "project-name"
+            name: "projectName"
         },
         {
             type: "input",
@@ -61,80 +61,79 @@ const promptUser = () => {
         }
 
     ]).then(function (answers) {
-        const queryUrl = `https://api.github.com/users/${answers.username}/events/public`;
-
-        
-        axios.get(queryUrl).then(function (res) {
-            //how to return these two values? 
-            const { avatar_url } = res.data[0].actor;
-            const { email, name} = res.data[0].payload.commits[0].author;
-           
-
-        }).catch(function (err) {
-            console.log(err)
-        }
-        )
-        
         return answers;
     })
 }
+const githubData = (username) => {
+    const queryUrl = `https://api.github.com/users/${username}/events/public`;
+    return axios.get(queryUrl).then(function (res) {
+    
+        const { avatar_url } = res.data[0].actor;
+        const { email } = res.data[0].payload.commits[0].author;
+
+        return {
+            avatar_url,
+            email,
+        }
+
+
+    }).catch(function (err) {
+        console.log(err)
+    }
+    )
+    
+}
 // promptUser(); 
-function generateReadme(answers) {
+function generateReadme(answers, githubInfo) {
     return `
-    <h1>${answers.project-name}</h1>
+    <h1>${answers.projectName}</h1>
     <p>${answers.description}</p>
     
-    ## Table of Contents
+    <h2>Table of Contents</h2>
+    <ul> 
+    //make hyperlinks
+      <li>Installation</li>                       
+      <li>Usage</li> 
+      <li>License</li> 
+      <li>Contributing</li> 
+      <li>Tests</li>
+      <li>Questions</li>
+    </ul>
+    <h2>Installation</h2>                         
+    <p>${answers.install}</p>
+    <h>Usage</h2>
+    <p>${answers.usage}</p> 
+    <h>License</h2>
+    <p>${answers.license}</p>
+    <h>Contributing</h2>
+    <p>${answers.contributing}</p>
+    <h>Tests</h2>
+    <h3>To test this project, follow these directions:</h3>
+    <p>${answers.tests}</p>
+    <h>Questions</h2>
+    <img src="${githubInfo.avatar_url}" alt="git hub profile picture>
+    <p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly</p>                                
                               
-    * [Installation](#installation)
-    * [Usage](#usage)
-    * [License](#license)
-    * [Contributing](#contributing)
-    * [Tests](#tests)
-    * [Questions](#questions)
-                              
-    ## Installation
-                              
-    ${answers.install}
-                              
-    ## Usage
-                              
-    ${answers.usage}
-
-    ## License 
-	
-   ${answers.license}
-                              
-    ## Contributing
-                              
-    ${answers.contributing}
-                              
-    ## Tests 
-                              
-     To test this project, follow these directions:
-                              
-    ${answers.tests}
                               
     ## Questions
                               
-    ![GitHub Avatar](${avatar_url})
+    <img src="${githubInfo.avatar_url}" alt="git hub profile picture>
                 
-    Any questions regarding this project, contact ${email} directly
+    Any questions regarding this project, contact ${githubInfo.email} directly
     `;
 }
 async function init() {
     try {
-      const answers = await promptUser();
-  
-      const readMe = generateReadme(answers);
-  
-      await writeFileAsync("README.md", readMe);
-  
-      console.log("Created README!");
-    } catch(err) {
-      console.log(err);
+        const answers = await promptUser();
+        githubData(answers.username).then(async(github) =>  {
+            const readMe = generateReadme(answers, github)
+            await writeFileAsync("README.md", readMe);
+            console.log("Created README!");
+        })
+
+    } catch (err) {
+        console.log(err);
     }
-  }
-  
-  init();
-  
+}
+
+init();
