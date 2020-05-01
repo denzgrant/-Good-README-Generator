@@ -22,5 +22,7 @@
 <p>${answers.tests}</p>
 <h2>Questions</h2>
 <p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly</p> 
-<img src="${githubInfo.avatar_url}" alt="git hub profile picture" height="100" width="100">
-<img src="https://img.shields.io/badge/Node-12.16.3-brightgreen"><img src="https://img.shields.io/badge/-JavaScript-brightgreen"><img src="https://img.shields.io/github/followers/denzgrant?label=follow&style=social">
+<img src="${githubInfo.avatar_url}" alt="git hub profile picture">
+<img src="https://img.shields.io/badge/Node-12.16.3-brightgreen">
+<img src="https://img.shields.io/badge/-JavaScript-brightgreen">
+<img src="https://img.shields.io/github/followers/denzgrant?label=follow&style=social">
