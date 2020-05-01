@@ -22,7 +22,7 @@
 <p>${answers.tests}</p>
 <h2>Questions</h2>
 <p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly</p> 
-<img src="${githubInfo.avatar_url}" alt="git hub profile picture" height="42" width="42">
+<img src="${githubInfo.avatar_url}" alt="git hub profile picture" height="75" width="75">
 <img src="https://img.shields.io/github/followers/denzgrant?label=follow&style=social">
 <br>
 <img src="https://img.shields.io/badge/-JavaScript-brightgreen">
