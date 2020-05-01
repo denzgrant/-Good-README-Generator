@@ -12,11 +12,6 @@ const promptUser = () => {
             type: "input",
             message: "Hello, I am here to assist with creating you a professional ReadMe. Can you start with entering your GitHub username",
             name: "username",
-            // validate(input) {
-            //     if (input === true) {
-            //         console.log("wrong name"); 
-            //     }
-            // }
         },
         {
             type: "input",
@@ -36,7 +31,8 @@ const promptUser = () => {
                 "MIT",
                 "GNU",
                 "Unlicense",
-                "Apache"
+                "Apache",
+                "None",
             ]
         },
         {
@@ -64,10 +60,23 @@ const promptUser = () => {
         return answers;
     })
 }
+const githubLicense = (license) => {
+    const licenseURL = `https://api.github.com/licenses/MIT`;
+    console.log(license);
+    return axios.get(licenseURL).then(function (response) {
+        console.log(response); 
+
+    }).catch(function (err) {
+        console.log(err)
+    }
+    )
+
+}
+
 const githubData = (username) => {
     const queryUrl = `https://api.github.com/users/${username}/events/public`;
     return axios.get(queryUrl).then(function (res) {
-    
+
         const { avatar_url } = res.data[0].actor;
         const { email } = res.data[0].payload.commits[0].author;
 
@@ -81,51 +90,47 @@ const githubData = (username) => {
         console.log(err)
     }
     )
-    
+
 }
-// promptUser(); 
+
 function generateReadme(answers, githubInfo) {
     return `
-    <h1>${answers.projectName}</h1>
-    <p>${answers.description}</p>
-    
-    <h2>Table of Contents</h2>
-    <ul> 
-    //make hyperlinks
-      <li>Installation</li>                       
-      <li>Usage</li> 
-      <li>License</li> 
-      <li>Contributing</li> 
-      <li>Tests</li>
-      <li>Questions</li>
-    </ul>
-    <h2>Installation</h2>                         
-    <p>${answers.install}</p>
-    <h>Usage</h2>
-    <p>${answers.usage}</p> 
-    <h>License</h2>
-    <p>${answers.license}</p>
-    <h>Contributing</h2>
-    <p>${answers.contributing}</p>
-    <h>Tests</h2>
-    <h3>To test this project, follow these directions:</h3>
-    <p>${answers.tests}</p>
-    <h>Questions</h2>
-    <img src="${githubInfo.avatar_url}" alt="git hub profile picture>
-    <p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly</p>                                
-                              
-                              
-    ## Questions
-                              
-    <img src="${githubInfo.avatar_url}" alt="git hub profile picture>
-                
-    Any questions regarding this project, contact ${githubInfo.email} directly
-    `;
+<h1>${answers.projectName}</h1>
+<p>${answers.description}</p>
+<h2>Table of Contents</h2>
+<ul> 
+ <li><a href="#Installation">Installation</a></li> 
+ <li><a href="#Usage">Usage</a></li>   
+ <li><a href="#License">License</a></li>   
+ <li><a href="#Contributing">Contributing</a></li>   
+ <li><a href="#Tests">Tests</a></li>   
+ <li><a href="#Questions">Questions</a></li>                         
+</ul>
+<h2 id="Installation">Installation</h2>                         
+<p>${answers.install}</p>
+<h2 id="Usage">Usage</h2>
+<p>${answers.usage}</p> 
+<h2 id="License">License</h2>
+<p>Licensed under the<a href="./README.md">${answers.license}</a></p>
+<h2 id="Contributing">Contributing</h2>
+<p>${answers.contributing}</p>
+<h2 id="Tests">Tests</h2>
+<h3>To test this project, follow these directions:</h3>
+<p>${answers.tests}</p>
+<h2 id="Questions">Questions</h2>
+<p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly</p> 
+<img src="${githubInfo.avatar_url}" alt="git hub profile picture" height="42" width="42">
+<img src="https://img.shields.io/badge/Node-12.16.3-brightgreen">
+<img src="https://img.shields.io/badge/-JavaScript-brightgreen">
+<img src="https://img.shields.io/github/followers/denzgrant?label=follow&style=social">                           
+`;
 }
 async function init() {
     try {
         const answers = await promptUser();
-        githubData(answers.username).then(async(github) =>  {
+        githubData(answers.username).then(async (github) => {
+            githubLicense();
+            // const license = generateReadme
             const readMe = generateReadme(answers, github)
             await writeFileAsync("README.md", readMe);
             console.log("Created README!");
