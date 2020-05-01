@@ -29,9 +29,9 @@ const promptUser = () => {
             name: "license",
             choices: [
                 "MIT",
-                "GNU",
+                "Gpl-3.0",
                 "Unlicense",
-                "Apache",
+                "Apache-2.0",
                 "None",
             ]
         },
@@ -61,11 +61,12 @@ const promptUser = () => {
     })
 }
 const githubLicense = (license) => {
-    const licenseURL = `https://api.github.com/licenses/MIT`;
-    console.log(license);
+    const licenseURL = `https://api.github.com/licenses/${license}`;
+    // console.log(license);
     return axios.get(licenseURL).then(function (response) {
-        console.log(response); 
 
+        // const { body } = response.body; 
+        console.log(response.data.body); 
     }).catch(function (err) {
         console.log(err)
     }
@@ -79,13 +80,12 @@ const githubData = (username) => {
 
         const { avatar_url } = res.data[0].actor;
         const { email } = res.data[0].payload.commits[0].author;
-
+        // console.log(avatar_url); 
+        
         return {
             avatar_url,
             email,
         }
-
-
     }).catch(function (err) {
         console.log(err)
     }
@@ -129,8 +129,7 @@ async function init() {
     try {
         const answers = await promptUser();
         githubData(answers.username).then(async (github) => {
-            githubLicense();
-            // const license = generateReadme
+            githubLicense(answers.license);
             const readMe = generateReadme(answers, github)
             await writeFileAsync("README.md", readMe);
             console.log("Created README!");
