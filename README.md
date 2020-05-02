@@ -19,7 +19,7 @@
   <h2 id="Contributing">Contributing</h2>
   <p>Anyone is free to contribute to this application. Being an open source community makes the Dev community special. Any contributes are appreciated. </p>
   <h2 id="Tests">Tests</h2>
-  <h3>To test this project, follow these directions:</h3>
+  <h3>Tests are TBD</h3>
   <p></p>
   <h2 id="Questions">Questions</h2>
   <p style="strong">Any questions regarding this project, contact denzgrant@gmail.com directly.</p> 
