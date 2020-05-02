@@ -1,5 +1,3 @@
-
-
 const generateReadme = (answers, githubInfo) => {
     return `
   <h1>${answers.projectName}</h1>
@@ -25,8 +23,8 @@ const generateReadme = (answers, githubInfo) => {
   <h3>To test this project, follow these directions:</h3>
   <p>${answers.tests}</p>
   <h2 id="Questions">Questions</h2>
-  <p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly</p> 
-  <img src="${githubInfo.avatar_url}" alt="git hub profile picture" height="42" width="42">
+  <p style="strong">Any questions regarding this project, contact ${githubInfo.email} directly.</p> 
+  <img src="${githubInfo.avatar_url}" alt="git hub profile picture" height="225" width="250">
   <img src="https://img.shields.io/badge/Node-12.16.3-brightgreen">
   <img src="https://img.shields.io/badge/-JavaScript-brightgreen">
   <img src="https://img.shields.io/github/followers/denzgrant?label=follow&style=social">                           
