@@ -11,7 +11,7 @@
    <li><a href="#Questions">Questions</a></li>                         
   </ul>
   <h2 id="Installation">Installation</h2>                         
-  <p>Clone the repo by git close https://github.com/denzgrant/-Good-README-Generator.git</p>
+  <p>Feel free to clone the repo: https://github.com/denzgrant/-Good-README-Generator.git</p>
   <h2 id="Usage">Usage</h2>
   <p>This application is free to be used by anyone who also needs assistance with creating a professional README. </p> 
   <h2 id="License">License</h2>
