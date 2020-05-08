@@ -6,8 +6,7 @@
    <li><a href="#Installation">Installation</a></li> 
    <li><a href="#Usage">Usage</a></li>   
    <li><a href="#License">License</a></li>   
-   <li><a href="#Contributing">Contributing</a></li>   
-   <li><a href="#Tests">Tests</a></li>   
+   <li><a href="#Contributing">Contributing</a></li>      
    <li><a href="#Questions">Questions</a></li>                         
   </ul>
   <h2 id="Installation">Installation</h2>                         
@@ -18,8 +17,6 @@
   <p>Licensed under the <a href="./README.md">Unlicense</a></p>
   <h2 id="Contributing">Contributing</h2>
   <p>Anyone is free to contribute to this application. Being an open source community makes the Dev community special. Any contributes are appreciated. </p>
-  <h2 id="Tests">Tests</h2>
-  <h3>Tests are TBD</h3>
   <p></p>
   <h2 id="Questions">Questions</h2>
   <p style="strong">Any questions regarding this project, contact denzgrant@gmail.com directly.</p> 
