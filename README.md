@@ -10,7 +10,19 @@
    <li><a href="#Questions">Questions</a></li>                         
   </ul>
   <h2 id="Installation">Installation</h2>                         
-  <p>Feel free to clone the repo: https://github.com/denzgrant/-Good-README-Generator.git</p>
+  
+1. Clone this repository.
+    ```
+    git clone https://github.com/denzgrant/-Good-README-Generator.git
+    ```
+1. Install Nodejs dependencies.
+    ```
+    npm install
+    ```
+1. In the root directory of the project, start the server.
+    ```
+    node server.js
+    ```
   <h2 id="Usage">Usage</h2>
   <p>This application is free to be used by anyone who also needs assistance with creating a professional README. </p> 
   <h2 id="License">License</h2>
