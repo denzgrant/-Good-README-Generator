@@ -1,6 +1,6 @@
 
-  <h1>README Generator </h1>
-  <img src="https://img.shields.io/badge/Node-12.16.3-brightgreen"><img src="https://img.shields.io/github/last-commit/denzgrant/-Good-README-Generator">
+  <h1>README Generator</h1>
+  <img src="https://img.shields.io/badge/Node-12.16.3-brightgreen"> <img src="https://img.shields.io/github/last-commit/denzgrant/-Good-README-Generator">
   
   <p>README Generator is an application created by Node.js and npm's inquirer that allows the user to create a professional README. </p>
   <h2>Table of Contents</h2>
